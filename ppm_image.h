@@ -10,9 +10,9 @@ namespace agl
 {
   struct ppm_pixel
   {
-     unsigned char r;
-     unsigned char g;
-     unsigned char b;
+     int r;
+     int g;
+     int b;
   };
 
   class ppm_image
@@ -69,5 +69,10 @@ namespace agl
 
      // return the height of the image
      int height() const;
+
+  private:
+      ppm_pixel** image;
+      int h;
+      int w;
   };
 }
