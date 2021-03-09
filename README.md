@@ -2,7 +2,8 @@
 
 Image manipulation demos based on the PPM image format.
 
-TODO: Add a representative image for your project here
+![original soup image](images/soup-ascii.jpg)
+![filtered soup image](images/soup-filtered_by_Iryna.jpg)
 
 ## How to build
 
@@ -44,10 +45,53 @@ pixmap-ops/build $ ../bin/pixmap_art
 ```
 
 ## Image operators
+Besides the required image transformations, I have added my own additional filters:
+### 1. Swirl Colors
+A filter that swaps the colors of the image such that the red channel becomes the green channel, the green becomes blue, and the blue becomes red.
 
-TODO: Document the features of your PPM image class here. Include example images.
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-test-swirl-colors.jpg)
+
+### 2. Invert Colors
+A filter that inverts all the pixels in the image.
+
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-test-invert-colors.jpg)
+
+### 3. Add Border
+A filter that adds a "tile border" effect on the north-west sides of the image given the needed thickness and color, without cropping part of the image. E.g. whote border with 3px thickness (better seen with dark Github's mode).
+
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-test-border3px.jpg)
+
+### 4. Extract Whites
+A filter that extracts all white pixels that pass a given threshold.
+
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-test-extract-white.jpg)
+
+### 5. Extract Main Colors
+A filter that extracts RGB colors from the picture, based on which color each pixel had the most.
+
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-test-extract-main-colors.jpg)
+
+### 6. Lightest Blend
+A filter that blends in two pictures of the same sime using the lightest mode of overlay for a given gamma.
+
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-lightest-blend-0.5.jpg)
 
 ## Results
+As a result, I have created my own filter using the three filters I have described above (Extract Whites, Extract Main Colors, Lightest Blend). I wanted to create a filter that would preserve the main characteristics of the image while blending in the similar colors, which in combination creates a contrasted effect and brings up the main features of the image. Because of its nature, my filter works best on very colorful images and on simple illustrations, especially the ones with text. My filter works in the following way:
+1. Extract main colors from the original picture
+2. Extract whites from the picture
+3. Overlay both main colored and whites images with the lighest blend.
 
-TODO: Show artworks using your class
+![original soup image](images/soup-ascii.jpg)
+![filtered soup image](images/soup-filtered_by_Iryna.jpg)
 
+![original earth image](images/earth-load.jpg)
+![filtered earth image](images/earth-filtered_by_Iryna.jpg)
+
+In the future, I plan to enhance my algorithm to filter out not only red, green, blue, and white, but other colors as well, allowing it to create more precise images for pictures that don't have much color variation.
