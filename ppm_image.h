@@ -74,5 +74,6 @@ namespace agl
       ppm_pixel** image;
       int h;
       int w;
+      void create_pixel_array(int h, int w);
   };
 }
