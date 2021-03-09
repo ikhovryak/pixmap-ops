@@ -20,10 +20,6 @@ int main(int argc, char** argv)
    copy = image; 
    copy.save("feep-test-assignment.ppm"); // should match original and load into gimp
 
-
-   
-
-
    // should print r,g,b
    ppm_pixel pixel = image.get(1, 1);
    cout << (int) pixel.r << " " << (int) pixel.g << " " << (int) pixel.b << endl;
@@ -65,11 +61,27 @@ int main(int argc, char** argv)
    // sub image
    ppm_image sub = image.subimage(200, 200, 100, 100);
    sub.save("earth-subimage.ppm");
-   
-   
-   
 
-   
+   // invert colors
+   ppm_image inverted = image.invertColors();
+   inverted.save("earth-test-invert-colors.ppm");
+
+   // extract main colors
+   ppm_image mainColorsExtracted = image.extractMainColors();
+   mainColorsExtracted.save("earth-test-extract-main-colors.ppm");
+
+   // extract main colors
+   ppm_image whiteExtracted = image.extractWhite(0.8f);
+   whiteExtracted.save("earth-test-extract-white.ppm");
+
+   // swirlColors
+   ppm_image swirlColors = image.swirlColors();
+   swirlColors.save("earth-test-swirl-colors.ppm");
+
+   // add border
+   ppm_image bordered = image.addBorder(3, ppm_pixel{ 255, 255, 255 });
+   bordered.save("earth-test-border3px.ppm");
+
    // alpha blend
    ppm_image soup;
    soup.load("../images/soup-ascii.ppm");
@@ -82,6 +94,19 @@ int main(int argc, char** argv)
    image.replace(blend, x, y);
    image.save("earth-blend-0.5.ppm");
 
+
+   // lightest blend
+
+   y = (int)(0.5f * (image.width() - soup.width()));
+   x = (int)(0.5f * (image.height() - soup.height()));
+   background = image.subimage(x, y, soup.width(), soup.height());
+   ppm_image lightest_blend = background.lightest(soup, 0.5f);
+   image.replace(lightest_blend, x, y);
+   image.save("earth-lightest-blend-0.5.ppm");
    
+   ppm_image earth;
+   earth.load("../images/earth-ascii.ppm");
+   ppm_image filtered_by_Iryna = earth.IrynasFilter(0.8f, 0.5f);
+   filtered_by_Iryna.save("earth-filtered_by_Iryna.ppm");
 }
 

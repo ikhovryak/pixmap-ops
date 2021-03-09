@@ -49,6 +49,21 @@ namespace agl
      // Return a copy of this image with the given gamma correction applied to it
      ppm_image gammaCorrect(float gamma) const;
 
+     // Return a copy of image with rotated the colors of the image such that the red channel becomes the green channel, the green becomes blue, and the blue becomes red
+     ppm_image swirlColors() const;
+
+     ppm_image invertColors() const;
+
+     ppm_image addBorder(int thickness, ppm_pixel color) const;
+
+     ppm_image lightest(const ppm_image& other, float amount) const;
+
+     ppm_image extractWhite(float threshold) const;
+
+     ppm_image extractMainColors() const;
+
+     ppm_image IrynasFilter(float threshold, float alpha) const;
+
      // Apply the following calculation to the pixels in 
      // our image and the given image:
      //    this.pixels = this.pixels * (1-alpha) + other.pixel * alpha
